@@ -22,6 +22,23 @@ function App() {
     setBmi(newBmi);
   };
 
+  const checkBmiResult = () => {
+    if (bmi === 0) return "ข้อมูลไม่ถูกต้อง";
+    if (bmi < 18.5) return "น้ำหนักน้อย / ผอม";
+    if (bmi < 22.9) return "ปกติ (สุขภาพดี)";
+    if (bmi < 24.9) return "ท้วม / โรคอ้วนระดับ 1";
+    if (bmi < 29.9) return "อ้วน / โรคอ้วนระดับ 2";
+    if (bmi >= 30) return "อ้วนมาก / โรคอ้วนระดับ 3";
+  };
+
+  const checkConscripted = () => {
+    if (bmi === 0) return "ข้อมูลไม่ถูกต้อง";
+
+    if (bmi > 35) return "คุณมีสิทธ์ได้รับการคัดเลือกทหาร";
+
+    if (bmi <= 35) return "คุณมีสิทธ์ไม่ได้รับการคัดเลือกทหาร\nจำพวกที่ 4";
+  };
+
   return (
     <>
       <div className="bg-zinc-600">
@@ -69,10 +86,21 @@ function App() {
             คำนวณ
           </button>
           {bmi > 0 && (
-            <div className="rounded py-5 px-10 bg-white my-10 text-black ">
+            <div className="rounded py-5 px-10 bg-white mt-10 text-black ">
               <p className="font-itim text-xl">
                 ค่า BMI ของคุณคือ: {bmi.toFixed(2)}
               </p>
+            </div>
+          )}
+          {bmi > 0 && (
+            <div className="rounded py-5 px-10 bg-white mt-5 text-black text-center">
+              <div className="font-itim text-xl">
+                คุณอยู่ในเกณท์: {checkBmiResult()}
+                <p className="text-lg">{checkConscripted()}</p>
+                <p className="text-sm text-red-600">
+                  **ทั้งนี้อยู่ที่ดุลพินิจของเจ้าหน้าที่ ที่หน่วยคัดเลือกด้วย**
+                </p>
+              </div>
             </div>
           )}
         </div>
